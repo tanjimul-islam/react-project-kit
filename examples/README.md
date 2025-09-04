@@ -1,15 +1,15 @@
-# React Starter Pack Examples
+# React Project Kit Examples
 
-This directory contains examples of how to use the react-starter-pack package.
+This directory contains examples of how to use the react-project-kit package.
 
 ## Basic Usage
 
 ```bash
 # Create a new project with default settings
-npx react-starter-pack my-app
+npx react-project-kit my-app
 
 # Create a project with specific name
-npx react-starter-pack my-awesome-app
+npx react-project-kit my-awesome-app
 ```
 
 ## Example Project Structure

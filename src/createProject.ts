@@ -12,7 +12,7 @@ interface ProjectConfig {
 }
 
 export async function createProject(projectName?: string): Promise<void> {
-  console.log(chalk.blue.bold("🚀 React Starter Pack"));
+  console.log(chalk.blue.bold("🚀 React Project Kit"));
   console.log(chalk.gray("Create a new React project with modern tooling\n"));
 
   try {

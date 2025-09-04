@@ -1,4 +1,4 @@
-# React Starter Pack
+# React Project Kit
 
 A modern React starter template with everything you need to build amazing applications.
 
@@ -18,7 +18,7 @@ A modern React starter template with everything you need to build amazing applic
 
 ```bash
 # Create a new project
-npx react-starter-pack my-app
+npx react-project-kit my-app
 
 # Navigate to project directory
 cd my-app

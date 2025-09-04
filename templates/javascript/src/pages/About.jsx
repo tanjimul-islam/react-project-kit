@@ -16,7 +16,7 @@ export function About() {
     <div className="max-w-4xl mx-auto px-4 py-8">
       <div className="text-center mb-12">
         <h1 className="text-4xl font-bold text-gray-900 mb-4">
-          About React Starter Pack
+          About React Project Kit
         </h1>
         <p className="text-xl text-gray-600">
           A comprehensive React template with modern tooling and best practices.
