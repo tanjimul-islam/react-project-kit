@@ -1,10 +1,10 @@
 {
-  "name": "react-starter-pack",
-  "version": "1.1.0",
+  "name": "react-project-kit",
+  "version": "0.1.0-alpha.0",
   "description": "A customizable React starter template with modern tooling",
   "main": "dist/index.js",
   "bin": {
-    "react-starter-pack": "dist/cli.js"
+    "react-project-kit": "dist/cli.js"
   },
   "scripts": {
     "build": "tsc",
@@ -32,7 +32,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/tanjimul-islam/react-starter-pack.git"
+    "url": "https://github.com/tanjimul-islam/react-project-kit.git"
   },
   "dependencies": {
     "chalk": "^5.3.0",
