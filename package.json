@@ -1,7 +1,7 @@
 {
   "name": "react-project-kit",
-  "version": "0.1.0-alpha.1",
-  "description": "A customizable React starter template with modern tooling",
+  "version": "0.1.0-alpha.3",
+  "description": "Create React projects instantly with npx react-project-kit - No installation needed!",
   "main": "dist/index.js",
   "bin": {
     "react-project-kit": "dist/cli.js"

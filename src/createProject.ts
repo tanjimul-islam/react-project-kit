@@ -73,7 +73,6 @@ async function getProjectConfig(projectName?: string): Promise<ProjectConfig> {
       message:
         "Which optional packages would you like to install? (Press spacebar to select, Enter to continue with none)",
       choices: [
-        { name: "None", value: "none" },
         { name: "shadcn/ui (UI components)", value: "shadcn" },
         { name: "Redux Toolkit", value: "redux" },
       ],
@@ -128,7 +127,22 @@ async function copyTemplates(config: ProjectConfig): Promise<void> {
     config.projectName === "."
       ? process.cwd()
       : path.join(process.cwd(), config.projectName);
-  const templatePath = path.join(__dirname, "..", "templates", config.language);
+
+  // Determine which template to use
+  let templatePath: string;
+
+  if (config.optionalPackages.includes("redux")) {
+    // Use Redux template if Redux is selected
+    templatePath = path.join(
+      __dirname,
+      "..",
+      "templates",
+      `${config.language}-redux`
+    );
+  } else {
+    // Use base template if Redux is not selected
+    templatePath = path.join(__dirname, "..", "templates", config.language);
+  }
 
   // Copy template files if they exist
   if (await fs.pathExists(templatePath)) {
@@ -163,19 +177,16 @@ async function installDependencies(config: ProjectConfig): Promise<void> {
     // Install optional dependencies
     const optionalDeps: string[] = [];
 
-    // If "none" is selected, don't install any optional packages
-    if (!config.optionalPackages.includes("none")) {
-      if (config.optionalPackages.includes("redux")) {
-        optionalDeps.push("@reduxjs/toolkit", "react-redux");
-      }
-      if (config.optionalPackages.includes("shadcn")) {
-        optionalDeps.push(
-          "@radix-ui/react-slot",
-          "class-variance-authority",
-          "clsx",
-          "tailwind-merge"
-        );
-      }
+    if (config.optionalPackages.includes("redux")) {
+      optionalDeps.push("@reduxjs/toolkit", "react-redux");
+    }
+    if (config.optionalPackages.includes("shadcn")) {
+      optionalDeps.push(
+        "@radix-ui/react-slot",
+        "class-variance-authority",
+        "clsx",
+        "tailwind-merge"
+      );
     }
 
     if (optionalDeps.length > 0) {

@@ -1,6 +1,33 @@
 # React Project Kit
 
+Create React projects instantly with `npx react-project-kit` - No installation needed!
+
 A modern React starter template with everything you need to build amazing applications.
+
+## 🚀 Quick Start (Recommended)
+
+```bash
+# Create a new React project instantly - no installation needed!
+npx react-project-kit my-app
+
+# Navigate to project directory
+cd my-app
+
+# Start development server
+npm run dev
+```
+
+## 📦 Alternative Installation Methods
+
+```bash
+# Global installation (optional)
+npm install -g react-project-kit
+react-project-kit my-app
+
+# Or use with npm scripts
+npm install react-project-kit
+npm run react-project-kit my-app
+```
 
 ## Features
 
@@ -11,21 +38,9 @@ A modern React starter template with everything you need to build amazing applic
 - 🔄 **React Query** - Powerful data fetching and caching
 - 📝 **React Hook Form** - Performant forms with easy validation
 - 🎯 **Lucide React** - Beautiful and consistent icons
+- 🌐 **Axios** - Promise-based HTTP client for API calls
 - 📱 **Responsive Design** - Mobile-first approach
 - 🚀 **Production Ready** - Optimized for deployment
-
-## Quick Start
-
-```bash
-# Create a new project
-npx react-project-kit my-app
-
-# Navigate to project directory
-cd my-app
-
-# Start development server
-npm run dev
-```
 
 ## Installation Options
 

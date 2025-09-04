@@ -35,12 +35,12 @@ export function About() {
             What's Included
           </h2>
           <ul className="space-y-4">
-            <li className="flex items-start space-x-3">
-              <div className="w-2 h-2 bg-blue-600 rounded-full mt-2"></div>
-              <span className="text-gray-700">
-                React 19 with latest features
-              </span>
-            </li>
+                          <li className="flex items-start space-x-3">
+                <div className="w-2 h-2 bg-blue-600 rounded-full mt-2"></div>
+                <span className="text-gray-700">
+                  React 19 with latest features
+                </span>
+              </li>
             <li className="flex items-start space-x-3">
               <div className="w-2 h-2 bg-blue-600 rounded-full mt-2"></div>
               <span className="text-gray-700">Vite for fast development</span>
@@ -62,10 +62,6 @@ export function About() {
             <li className="flex items-start space-x-3">
               <div className="w-2 h-2 bg-blue-600 rounded-full mt-2"></div>
               <span className="text-gray-700">React Hook Form for forms</span>
-            </li>
-            <li className="flex items-start space-x-3">
-              <div className="w-2 h-2 bg-blue-600 rounded-full mt-2"></div>
-              <span className="text-gray-700">Axios for HTTP requests</span>
             </li>
             <li className="flex items-start space-x-3">
               <div className="w-2 h-2 bg-blue-600 rounded-full mt-2"></div>
