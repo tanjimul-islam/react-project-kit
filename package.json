@@ -1,0 +1,54 @@
+{
+  "name": "react-starter-pack",
+  "version": "1.1.0",
+  "description": "A customizable React starter template with modern tooling",
+  "main": "dist/index.js",
+  "bin": {
+    "react-starter-pack": "dist/cli.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "prepublishOnly": "npm run build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "react",
+    "starter",
+    "template",
+    "vite",
+    "tailwindcss",
+    "typescript",
+    "javascript",
+    "react-router",
+    "react-query",
+    "react-hook-form",
+    "shadcn-ui",
+    "redux",
+    "cli",
+    "boilerplate"
+  ],
+  "author": "Tanjimul Islam",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tanjimul-islam/react-starter-pack.git"
+  },
+  "dependencies": {
+    "chalk": "^5.3.0",
+    "commander": "^11.1.0",
+    "inquirer": "^9.2.12",
+    "ora": "^7.0.1",
+    "fs-extra": "^11.2.0"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^11.0.4",
+    "@types/inquirer": "^9.0.7",
+    "@types/node": "^20.10.5",
+    "typescript": "^5.3.3"
+  },
+  "files": [
+    "dist",
+    "templates"
+  ]
+}
