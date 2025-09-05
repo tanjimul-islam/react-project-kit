@@ -2,6 +2,7 @@ import chalk from "chalk";
 import { execSync } from "child_process";
 import fs from "fs-extra";
 import inquirer from "inquirer";
+import net from "net";
 import ora from "ora";
 import path from "path";
 
@@ -11,13 +12,56 @@ interface ProjectConfig {
   optionalPackages: string[];
 }
 
+/**
+ * Checks if a port is available by attempting to create a server on it
+ */
+function isPortAvailable(port: number): Promise<boolean> {
+  return new Promise((resolve) => {
+    const server = net.createServer();
+
+    server.listen(port, () => {
+      server.once("close", () => {
+        resolve(true);
+      });
+      server.close();
+    });
+
+    server.on("error", () => {
+      resolve(false);
+    });
+  });
+}
+
+/**
+ * Finds the next available port starting from the given port
+ */
+async function findAvailablePort(startPort: number = 5173): Promise<number> {
+  let port = startPort;
+  const maxPort = 65535;
+
+  while (port <= maxPort) {
+    if (await isPortAvailable(port)) {
+      return port;
+    }
+    port++;
+  }
+
+  throw new Error(`No available ports found starting from ${startPort}`);
+}
+
 export async function createProject(projectName?: string): Promise<void> {
   console.log(chalk.blue.bold("🚀 React Project Kit"));
   console.log(chalk.gray("Create a new React project with modern tooling\n"));
 
   try {
     const config = await getProjectConfig(projectName);
-    await createProjectFiles(config);
+
+    // Find an available port for the development server
+    const spinner = ora("Finding available port...").start();
+    const availablePort = await findAvailablePort(5173);
+    spinner.succeed(`Using port ${availablePort} for development server`);
+
+    await createProjectFiles(config, availablePort);
     await installDependencies(config);
 
     // Setup shadcn/ui if selected
@@ -82,7 +126,10 @@ async function getProjectConfig(projectName?: string): Promise<ProjectConfig> {
   return answers;
 }
 
-async function createProjectFiles(config: ProjectConfig): Promise<void> {
+async function createProjectFiles(
+  config: ProjectConfig,
+  port: number
+): Promise<void> {
   const spinner = ora("Creating project files...").start();
 
   try {
@@ -96,7 +143,7 @@ async function createProjectFiles(config: ProjectConfig): Promise<void> {
       });
 
       // Copy our custom templates
-      await copyTemplates(config);
+      await copyTemplates(config, port);
     } else {
       // Create project directory
       await fs.ensureDir(config.projectName);
@@ -112,7 +159,7 @@ async function createProjectFiles(config: ProjectConfig): Promise<void> {
       );
 
       // Copy our custom templates
-      await copyTemplates(config);
+      await copyTemplates(config, port);
     }
 
     spinner.succeed("Project files created");
@@ -122,7 +169,10 @@ async function createProjectFiles(config: ProjectConfig): Promise<void> {
   }
 }
 
-async function copyTemplates(config: ProjectConfig): Promise<void> {
+async function copyTemplates(
+  config: ProjectConfig,
+  port: number
+): Promise<void> {
   const projectPath =
     config.projectName === "."
       ? process.cwd()
@@ -147,6 +197,32 @@ async function copyTemplates(config: ProjectConfig): Promise<void> {
   // Copy template files if they exist
   if (await fs.pathExists(templatePath)) {
     await fs.copy(templatePath, projectPath);
+  }
+
+  // Update Vite config with the available port
+  await updateViteConfig(projectPath, config.language, port);
+}
+
+/**
+ * Updates the Vite configuration file with the specified port
+ */
+async function updateViteConfig(
+  projectPath: string,
+  language: string,
+  port: number
+): Promise<void> {
+  const viteConfigPath = path.join(
+    projectPath,
+    language === "typescript" ? "vite.config.ts" : "vite.config.js"
+  );
+
+  if (await fs.pathExists(viteConfigPath)) {
+    let content = await fs.readFile(viteConfigPath, "utf-8");
+
+    // Replace the hardcoded port with the dynamic port
+    content = content.replace(/port:\s*\d+/, `port: ${port}`);
+
+    await fs.writeFile(viteConfigPath, content);
   }
 }
 
